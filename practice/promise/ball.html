@@ -22,50 +22,95 @@
 			background: blue;
 		}
 	</style>
+	<script src="./node_modules/bluebird/js/browser/bluebird.js"></script>
 </head>
 <body>
 	<div class="ball ball1" style="margin-left: 0"></div>
 	<div class="ball ball2" style="margin-left: 0"></div>
 	<div class="ball ball3" style="margin-left: 0"></div>
 	<script type="text/javascript">
-		var ball1=document.querySelector(".ball1");
-		var ball2=document.querySelector(".ball2");
-		var ball3=document.querySelector(".ball3");
+		var ball1 = document.querySelector(".ball1");
+		var ball2 = document.querySelector(".ball2");
+		var ball3 = document.querySelector(".ball3");
 
-		function animate(ball,distance,cb){
-			setTimeout(function(){
-				var marginLeft=parseInt(ball.style.marginLeft,10);
-				// console.log(marginLeft);
-				if(marginLeft===distance){
-					cb && cb();
-				}else{
-					if(marginLeft<distance){
-						marginLeft++;
-					}else{
-						marginLeft--;
-					}
+		// function animate(ball,distance,cb){
+		// 	setTimeout(function(){
+		// 		var marginLeft=parseInt(ball.style.marginLeft,10);
+		// 		// console.log(marginLeft);
+		// 		if(marginLeft===distance){
+		// 			cb && cb();
+		// 		}else{
+		// 			if(marginLeft<distance){
+		// 				marginLeft++;
+		// 			}else{
+		// 				marginLeft--;
+		// 			}
 
-					ball.style.marginLeft=marginLeft+"px";
-					animate(ball,distance,cb);
+		// 			ball.style.marginLeft=marginLeft+"px";
+		// 			animate(ball,distance,cb);
+		// 		}
+		// 	},13);
+		// }
+
+		// 这里是用回调的方式
+		// animate(ball1,100,function(){
+		// 	animate(ball2,200,function(){
+		// 		animate(ball3,300,function(){
+		// 			animate(ball3,150,function(){
+		// 				animate(ball2,150,function(){
+		// 					animate(ball1,150,function(){
+		// 						// end;
+		// 					});
+		// 				});
+		// 			});
+		// 		});
+		// 	});
+		// });
+
+		//	这里是用Promise的方式
+		var Promise = window.Promise;
+
+		function promiseAnimate(ball, distance) {
+			return new Promise(function(resolve, reject) {
+				
+				function _animate(ball, distance) {
+					setTimeout(function() {
+						var marginLeft = parseInt(ball.style.marginLeft, 10);
+						// console.log(marginLeft);
+						if (marginLeft === distance) {
+							resolve();
+						} else {
+							if (marginLeft < distance) {
+								marginLeft++;
+							} else {
+								marginLeft--;
+							}
+
+							ball.style.marginLeft = marginLeft + "px";
+							_animate(ball,distance);
+						}
+					}, 13);
 				}
-			},13);
+				_animate(ball,distance);
+			});
 		}
 
-		animate(ball1,100,function(){
-			animate(ball2,200,function(){
-				animate(ball3,300,function(){
-					animate(ball3,150,function(){
-						animate(ball2,150,function(){
-							animate(ball1,150,function(){
-								// end;
-							});
-						});
-					});
-				});
+		promiseAnimate(ball1,100)
+			.then(function(){
+				return promiseAnimate(ball2,200);
+			})
+			.then(function(){
+				return promiseAnimate(ball3,300);
+			})
+			.then(function(){
+				return promiseAnimate(ball3,150);
+			})
+			.then(function(){
+				return promiseAnimate(ball2,150);
+			})
+			.then(function(){
+				return promiseAnimate(ball1,150);
 			});
-		});
-
-
 	</script>
 </body>
 </html>
