@@ -52,7 +52,7 @@
 		// 	},13);
 		// }
 
-		// 这里是用回调的方式
+		// 1.这里是用回调的方式
 		// animate(ball1,100,function(){
 		// 	animate(ball2,200,function(){
 		// 		animate(ball3,300,function(){
@@ -67,7 +67,7 @@
 		// 	});
 		// });
 
-		//	这里是用Promise的方式
+		//	2.这里是用Promise的方式
 		var Promise = window.Promise;
 
 		function promiseAnimate(ball, distance) {
@@ -111,6 +111,8 @@
 			.then(function(){
 				return promiseAnimate(ball1,150);
 			});
+
+			// 线性的格式比嵌套会好很多。
 	</script>
 </body>
 </html>
