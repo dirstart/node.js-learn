@@ -11,3 +11,25 @@ app.listen(port);
 // 监听端口
 
 console.log('website started on port'+port);
+
+app.get('/',function(req,res){
+	res.render('index',{
+		title:'website 首页'
+	});
+});
+// 直接调用实例的get方法
+app.get('/movie/:id',function(req,res){
+	res.render('detail',{
+		title:'website 详情页'
+	});
+});
+app.get('/admin/movie',function(req,res){
+	res.render('admin',{
+		title:'website 后台页'
+	});
+});
+app.get('/admin/list',function(req,res){
+	res.render('list',{
+		title:'website 列表页'
+	});
+});
