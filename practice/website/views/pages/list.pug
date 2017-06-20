@@ -13,7 +13,7 @@ block content
 						th 上映年份
 						//-th 录入时间
 						th 查看
-						//- th 更新
+						th 更新
 						th 删除
 					tbody
 						each item in movies
@@ -23,7 +23,7 @@ block content
 								td #{item.country}
 								td #{item.language}
 								td #{item.year}
-								td #{moment(item.meta.createdAt).format('MM/DD/YYYY')}
+								//- td #{moment(item.meta.createdAt).format('MM/DD/YYYY')}
 								td: a(target="_blank", href="../movie/#{item._id}")  查看
 								td: a(target="_blank", href="../admin/update/#{item._id}")  修改
 								td
