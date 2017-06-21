@@ -1,10 +1,13 @@
 var express=require('express');
 var bodyParser=require('body-parser');
 var serveStatic=require('serve-static');
+var mongoose=require('mongoose');
 var port=process.env.PORT || 3000;
 // process是个全局变量，用来获取环境中的变量
 var path=require('path');
 var app=express();
+
+mongoose.connect('mongodb://localhost/imoo');
 
 app.set('views','./views/pages');
 // 设置视图的根目录
@@ -26,7 +29,7 @@ app.get('/',function(req,res){
 		title:'Movie 首页',
 		movies:[{
 			title:'奇妙世纪 08 梦的还原器',
-			_id: 1,
+			_id: 1,	
 			poster:'http://r3.ykimg.com/05410408548589706A0A4160AF2742DF'
 		},{
 			title:'奇妙世纪 08 梦的还原器',
