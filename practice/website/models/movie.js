@@ -4,6 +4,6 @@ var mongoose=require('mongoose');
 var MovieSchema=require('../schemas/movie');
 var Movie=mongoose.model('Movie',MovieSchema);
 
-console.log("test");
+// console.log("test");
 // 将模式导出
 module.exports=Movie;

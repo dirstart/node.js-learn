@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "bower": "^1.8.0",
     "express": "^4.15.3",
@@ -11,7 +12,8 @@
     "moment": "^2.18.1",
     "mongoose": "^4.10.6",
     "pug": "^2.0.0-rc.2",
-    "serve-static": "^1.12.3"
+    "serve-static": "^1.12.3",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {},
   "scripts": {
