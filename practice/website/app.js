@@ -3,6 +3,7 @@ var bodyParser=require('body-parser');
 var serveStatic=require('serve-static');
 var mongoose=require('mongoose');
 mongoose.Promise=require('bluebird');
+// 还是外国的解答社区好用，操你妈逼
 var _=require('underscore');
 var port=process.env.PORT || 3000;
 // process是个全局变量，用来获取环境中的变量
@@ -48,8 +49,10 @@ app.get('/movie/:id',function(req,res){
 		Movie.findById(id,function(err,movie){
 			if(err){
 				console.log("在这里出现了错误");
+				return ;
 			}
 			console.log(movie.title);
+			console.log(movie);
 			res.render('detail',{
 				title:"oh"+movie.title,
 				movie:movie
@@ -57,8 +60,6 @@ app.get('/movie/:id',function(req,res){
 			//这里的意思其实给detail这个html文件传值
 			console.log("这里已经走完了一次if");
 		});
-	}else{
-		console.log("没有找到id");
 	}
 });
 
