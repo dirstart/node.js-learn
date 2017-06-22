@@ -46,13 +46,19 @@ app.get('/movie/:id',function(req,res){
 	if(id){
 		console.log("进入了if这个判断里面");
 		Movie.findById(id,function(err,movie){
+			if(err){
+				console.log("在这里出现了错误");
+			}
+			console.log(movie.title);
 			res.render('detail',{
-				movie:movie,
-				title:'website 详情页'+ movie.title,
+				title:"oh"+movie.title,
+				movie:movie
 			});
+			//这里的意思其实给detail这个html文件传值
+			console.log("这里已经走完了一次if");
 		});
 	}else{
-		console.log("上面的id是存在的，但是这里可能出现了错误");
+		console.log("没有找到id");
 	}
 });
 
@@ -74,7 +80,7 @@ app.get('/admin/update/:id',function(req,res){
 app.post('/admin/movie/new',function(req,res){
 	// console.log("a");  经过判断是下方这个语句出了问题
 	var id=req.body.movie._id;
-	// console.log("id is:"+id);
+	console.log("在post这个过程中id是:"+id);  //undefined
 	var movieObj=req.body.movie;
 	// console.log("movieObj is:"+movieObj);
 	var _movie;
