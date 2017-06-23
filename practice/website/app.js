@@ -9,7 +9,7 @@ var port=process.env.PORT || 3000;
 // process是个全局变量，用来获取环境中的变量
 var path=require('path');
 var app=express();
-
+app.locals.moment=require('moment');
 var Movie=require('./models/movie');
 mongoose.connect('mongodb://localhost:27017/imooc');
 
