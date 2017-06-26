@@ -47,6 +47,15 @@ app.listen(port);
 console.log('website started on port' + port);
 
 
+// 0.pre reading
+app.use(function(req,res,next){
+	var _user=req.session.user;
+	console.log(_user);
+	if(_user){
+		app.locals.user=_user;
+	}
+	return next();
+});
 // 1.首页路由
 app.get('/', function(req, res) {
 	console.log('user in session:'+req.session.user);
@@ -210,7 +219,6 @@ app.get('/admin/userlist',function(req,res){
 // 9.用户登录路由
 app.post('/user/signin',function(req,res){
 	var _user=req.body.user;
-	req.session.user=_user;
 	var name=_user.name;
 	var password=_user.password;
 	User.findOne({name:name,password:password},function(err,user){
@@ -227,4 +235,10 @@ app.post('/user/signin',function(req,res){
 			return res.redirect('/');
 		}
 	});
+});
+// 10.登出功能log out
+app.get('/logout',function(req,res){
+	delete req.session.user;
+	delete app.locals.user;
+	res.redirect('/');
 });
