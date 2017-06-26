@@ -64,7 +64,7 @@ app.get('/', function(req, res) {
 			console.log(err);
 		}
 		res.render('index', {
-			title: '电影首页',
+			title: '视频首页',
 			movies: movies
 		});
 	});

@@ -5,11 +5,11 @@ block content
 		.row
 			form.form-horizontal(method="post",action="/admin/movie/new")
 				.form-group
-					label.col-sm-2.control-label(for="inputTitle") 电影名字
+					label.col-sm-2.control-label(for="inputTitle") 视频名字
 					.col-sm-10
 						input#inputTitle.form-control(type="text",name="movie[title]",value=movie.title)
 				.form-group
-					label.col-sm-2.control-label(for="inputDoctor") 电影导演
+					label.col-sm-2.control-label(for="inputDoctor") 作者
 					.col-sm-10
 						input#inputDoctor.form-control(type="text",name="movie[doctor]",value=movie.doctor)
 				.form-group

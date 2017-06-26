@@ -5,9 +5,9 @@ block content
 		.row
 			each item in movies
 				.col-md-2
-					.thumbnail
+					.thumbnail.clear-padding
 						a(href="/movie/"+item._id)
-							img(src=item.poster,alt=item.title)
+							img#limited(src=item.poster,alt=item.title)
 						.caption
-							h3 #{item.title}
-							p: a.btn.btn-primary(href="/movie/"+item._id,role="button") 观看预告片
+							h4.text-center #{item.title}
+							p.text-center: a.btn.btn-primary(href="/movie/"+item._id,role="button") 观看视频
