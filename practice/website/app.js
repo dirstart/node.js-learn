@@ -56,6 +56,8 @@ app.use(function(req,res,next){
 	}
 	return next();
 });
+
+
 // 1.首页路由
 app.get('/', function(req, res) {
 	console.log('user in session:'+req.session.user);
@@ -104,6 +106,13 @@ app.get('/admin/update/:id', function(req, res) {
 	} else {
 		console.log("你的电影并没有成功录入进去");
 	}
+});
+
+// test
+app.get('/test',function(req,res){
+	res.render('xx',{
+
+	});
 });
 // 4.电影post地址路由
 app.post('/admin/movie/new', function(req, res) {
@@ -176,7 +185,7 @@ app.get('/admin/list', function(req, res) {
 			console.log(err);
 		}
 		res.render('list', {
-			title: 'iMovie 后台-影片列表',
+			title: '视频后台页',
 			movies: movies
 		});
 	});
@@ -241,4 +250,18 @@ app.get('/logout',function(req,res){
 	delete req.session.user;
 	delete app.locals.user;
 	res.redirect('/');
+});
+
+// 11.删除的请求
+app.delete('/admin/list', function (req, res) {
+    var id = req.query.id;
+    if (id) {
+        Movie.remove({_id: id}, function (err, movie) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.json({success: 1});
+            }
+        });
+    }
 });
