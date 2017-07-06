@@ -1,4 +1,5 @@
 import React from "react";
+import "./hello.css";
 class Hello extends React.Component{
     constructor(props){
         super(props);

@@ -17,6 +17,9 @@ module.exports={
 			test:/\.html$/,
 			loader:'html-loader'
 		},{
+			test:/\.css$/,
+			loader:"style-loader!css-loader"
+		},{
 			test:/\.(js|jsx)$/,
 			loader:"babel-loader",
 			// exclude:path.resolve(__dirname,'/the_last_webpack/node_modules/'),
