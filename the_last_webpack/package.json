@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "build": "webpack --config ./webpack.config.js"
+    "build": "webpack --config ./webpack.config.js",
+    "dev": "webpack-dev-server --devtool eval-source-map --progress --content-base ./build"
   },
   "author": "",
   "license": "ISC",
