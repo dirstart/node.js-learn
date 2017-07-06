@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		body{
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<form name="test">
+		<code>
+			for(var value of range(<input class="num" name="start" type="text" value="0">,
+								   <input class="num" name="stop" type="text" value="4">))
+		</code>
+	</form>
+	<input type="button" value="Let's Go" onclick="go();return false;" name="">
+	<input type="button" value="test" id="test">
+</body>
+<script type="text/javascript">
+	function* range(start,stop){
+		for(var i=start;i<stop;i++) yield i;
+	}
+	window.go=function go(){
+		var start=parseInt(document.forms.test.start.value);
+		var stop=parseInt(document.forms.test.stop.value);
+
+		for(var value of range(start,stop)){
+			alert("Ding!"+value);
+		}
+	}
+
+	var test=document.getElementById("test");
+	test.addEventListener("load",function(){alert("test_for_d")});
+	test.addEventListener("click",function(){alert("a")});
+	test.addEventListener("load",function(){alert("b")});
+	test.addEventListener("click",function(){alert("c")})
+</script>
+</html>
