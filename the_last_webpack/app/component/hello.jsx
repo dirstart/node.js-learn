@@ -10,7 +10,7 @@ class Hello extends React.Component{
     }
     render(){
         return <div className="hello">
-                    hello <span>{this.props.text}</span>
+                    hello!!! <span>{this.props.text}</span>
                 </div>
     }
 }

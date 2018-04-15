@@ -47,4 +47,5 @@ UserSchema.statics={
 		.exec(callback);
 	}
 };
+
 module.exports=UserSchema;
