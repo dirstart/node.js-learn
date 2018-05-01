@@ -4,9 +4,6 @@
 	<meta charset="UTF-8">
 	<title>Promise animation</title>
 	<style type="text/css">
-/*		body{
-			margin: 0;
-		}*/
 		.ball{
 			width: 40px;
 			height: 40px;
@@ -22,97 +19,55 @@
 			background: blue;
 		}
 	</style>
-	<script src="./node_modules/bluebird/js/browser/bluebird.js"></script>
 </head>
 <body>
-	<div class="ball ball1" style="margin-left: 0"></div>
-	<div class="ball ball2" style="margin-left: 0"></div>
-	<div class="ball ball3" style="margin-left: 0"></div>
+	<div class="ball ball1"></div>
+	<div class="ball ball2"></div>
+	<div class="ball ball3"></div>
 	<script type="text/javascript">
-		var ball1 = document.querySelector(".ball1");
-		var ball2 = document.querySelector(".ball2");
-		var ball3 = document.querySelector(".ball3");
+		const ball1 = document.querySelector(".ball1");
+		const ball2 = document.querySelector(".ball2");
+		const ball3 = document.querySelector(".ball3");
 
-		// function animate(ball,distance,cb){
-		// 	setTimeout(function(){
-		// 		var marginLeft=parseInt(ball.style.marginLeft,10);
-		// 		// console.log(marginLeft);
-		// 		if(marginLeft===distance){
-		// 			cb && cb();
-		// 		}else{
-		// 			if(marginLeft<distance){
-		// 				marginLeft++;
-		// 			}else{
-		// 				marginLeft--;
-		// 			}
+		const getStyle = (ele, attr) => {
+			if (window.getComputedStyle) {
+				return window.getComputedStyle(ele, null)[attr];
+			} else {
+				return ele.currentStyle[attr];
+			}
+		};
 
-		// 			ball.style.marginLeft=marginLeft+"px";
-		// 			animate(ball,distance,cb);
-		// 		}
-		// 	},13);
-		// }
+		const Promise = window.Promise;
 
-		// 1.这里是用回调的方式
-		// animate(ball1,100,function(){
-		// 	animate(ball2,200,function(){
-		// 		animate(ball3,300,function(){
-		// 			animate(ball3,150,function(){
-		// 				animate(ball2,150,function(){
-		// 					animate(ball1,150,function(){
-		// 						// end;
-		// 					});
-		// 				});
-		// 			});
-		// 		});
-		// 	});
-		// });
-
-		//	2.这里是用Promise的方式
-		var Promise = window.Promise;
-
-		function promiseAnimate(ball, distance) {
-			return new Promise(function(resolve, reject) {
-				
-				function _animate(ball, distance) {
-					setTimeout(function() {
-						var marginLeft = parseInt(ball.style.marginLeft, 10);
-						// console.log(marginLeft);
-						if (marginLeft === distance) {
+		const promiseAnimate = (ball, target) => {
+			return new Promise((resolve, reject) => {
+					const auto = (ball, target) => setTimeout(() => {
+						let marginLeft = parseInt(getStyle(ball, "marginLeft"));
+						if (marginLeft === target) {
 							resolve();
 						} else {
-							if (marginLeft < distance) {
-								marginLeft++;
+							if (marginLeft < target) {
+								marginLeft ++;
 							} else {
-								marginLeft--;
+								marginLeft --;
 							}
-
 							ball.style.marginLeft = marginLeft + "px";
-							_animate(ball,distance);
+							auto(ball, target);
 						}
-					}, 13);
-				}
-				_animate(ball,distance);
-			});
-		}
+					}, 10);
 
-		promiseAnimate(ball1,100)
-			.then(function(){
-				return promiseAnimate(ball2,200);
-			})
-			.then(function(){
-				return promiseAnimate(ball3,300);
-			})
-			.then(function(){
-				return promiseAnimate(ball3,150);
-			})
-			.then(function(){
-				return promiseAnimate(ball2,150);
-			})
-			.then(function(){
-				return promiseAnimate(ball1,150);
+					auto(ball, target);
 			});
+		};
 
-			// 线性的格式比嵌套会好很多。
+		promiseAnimate(ball1, 100)
+		.then(() => {
+			return promiseAnimate(ball2, 200);
+		})
+		.then(() => {
+			return promiseAnimate(ball3, 300);
+		});
+
 	</script>
 </body>
 </html>
