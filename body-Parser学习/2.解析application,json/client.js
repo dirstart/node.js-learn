@@ -17,6 +17,7 @@ const reqJson = {
 const client = http.request(options, (res) => {
     // todo
     res.on('data', chunks => console.log(chunks.toString()));
+
 });
 
 client.on('error', error => console.log(error.message));

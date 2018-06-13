@@ -1,4 +1,6 @@
 const http = require('http');
+const qs = require('querystring');
+
 
 const parseMethod = (req, handle) => {
     let length = req.headers['content-length'] - 0;
@@ -6,22 +8,23 @@ const parseMethod = (req, handle) => {
     let chunks;
 
     req.on('data', buff => {
-        console.log(buff);
         arr.push(buff);
     });
 
     req.on('end', () => {
         chunks = Buffer.concat(arr);
-        console.log('开始处理传进来的东西', chunks);
         handle(chunks);
     })
 }
 
 const server = http.createServer((req, res) => {
     parseMethod(req, (chunks) => {
-        const json = chunks.toString();
-        console.log('服务器收到了client发来的', json, typeof json);
-        res.end(json);
+        const resData = qs.parse(chunks.toString());
+        // console.log(resData, resData.name);
+        // 不能以一个对象的形式发过去
+
+        console.log(qs.parse(chunks.toString()));
+        // res.end(`Your nick is ${resData.name}`)
     });
 });
 
